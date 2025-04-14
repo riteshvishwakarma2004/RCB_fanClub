@@ -8,7 +8,9 @@ public class RcbFanClubApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(RcbFanClubApplication.class, args);
-		System.out.println("RCB");
+
+		System.out.println("RCB play bold");
+
 
 	}
 
