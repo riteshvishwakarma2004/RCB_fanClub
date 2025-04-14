@@ -19,7 +19,7 @@ public class Home {
         this.homeService = home;
     }
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public ResponseEntity<HomeDataDto> homePage(){
         HomeDataDto dto = homeService.getHomeDate();
         return new ResponseEntity<>(dto, HttpStatus.OK);
