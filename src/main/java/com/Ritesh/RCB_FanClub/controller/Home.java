@@ -9,9 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,6 +35,19 @@ public class Home {
        Fans fan = homeService.getProfile(phone);
        model.addAttribute("profileDetail", fan);
         return "profile";
+    }
+
+    @GetMapping("/registrationPage")
+    public String registrationPage(){
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute RegisterDetail detail){
+
+        //complete it
+
+        return "success";
     }
 
 //   @GetMapping("/home")

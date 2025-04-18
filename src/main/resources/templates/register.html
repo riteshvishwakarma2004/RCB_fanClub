@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>RCB Fan Club - Register</title>
+  <style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: linear-gradient(to right, #e91e63, #9c27b0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        color: #fff;
+    }
+
+    .register-box {
+        background-color: rgba(0, 0, 0, 0.85);
+        padding: 40px;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 400px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+    }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    label {
+        display: block;
+        margin-top: 15px;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+    input[type="text"],
+    input[type="password"],
+    input[type="tel"] {
+        width: 100%;
+        padding: 12px;
+        margin-top: 5px;
+        border: none;
+        border-radius: 10px;
+        font-size: 14px;
+    }
+
+    .submit-btn {
+        width: 100%;
+        padding: 12px;
+        margin-top: 30px;
+        background-color: #ff4081;
+        color: white;
+        font-weight: bold;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .submit-btn:hover {
+        background-color: #f50057;
+    }
+
+    .error {
+        color: #ffcccc;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+<div class="register-box">
+  <h2>Join RCB Fan Club 🏏</h2>
+  <form th:action="@{/register}" method="post">
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" required pattern="[0-9]{10}" placeholder="10-digit number" />
+
+    <label for="name">Full Name</label>
+    <input type="text" id="name" name="name" required minlength="3" placeholder="Your Name" />
+
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required minlength="6" placeholder="At least 6 characters" />
+
+    <button type="submit" class="submit-btn">Register</button>
+  </form>
+</div>
+</body>
+</html>

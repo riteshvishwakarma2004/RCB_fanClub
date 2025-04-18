@@ -19,19 +19,19 @@ public class FansController {
         this.service = service;
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody Fans fan){
-        service.register(fan);
-
-        return new ResponseEntity<>("Added Successfully", HttpStatus.CREATED);
-    }
-
-    @GetMapping("/dashboard")
-    public ResponseEntity<Fans> getProfile(){
-        System.out.println("reaching profile");
-        String phone = SecurityContextHolder.getContext().getAuthentication().getName();
-        System.out.println(phone);
-        Fans fan = service.getProfile(phone);
-        return new ResponseEntity<>(fan,HttpStatus.OK);
-    }
+//    @PostMapping("/register")
+//    public ResponseEntity<String> register(@RequestBody Fans fan){
+//        service.register(fan);
+//
+//        return new ResponseEntity<>("Added Successfully", HttpStatus.CREATED);
+//    }
+//
+//    @GetMapping("/dashboard")
+//    public ResponseEntity<Fans> getProfile(){
+//        System.out.println("reaching profile");
+//        String phone = SecurityContextHolder.getContext().getAuthentication().getName();
+//        System.out.println(phone);
+//        Fans fan = service.getProfile(phone);
+//        return new ResponseEntity<>(fan,HttpStatus.OK);
+//    }
  }
