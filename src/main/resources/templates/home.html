@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>RCB Fan Club - Home</title>
+    <style>
+        :root {
+            --primary-color: #e91e63;
+            --secondary-color: #9c27b0;
+            --bg-light: #f5f5f5;
+            --bg-dark: #121212;
+            --text-light: #ffffff;
+            --text-dark: #000000;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            color: var(--text-dark);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+        }
+
+        .header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .header .title {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .header img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .header .actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header a, .toggle-dark {
+            background-color: white;
+            color: black;
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .content {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .main-content {
+            flex: 3;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .match-card {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 30px;
+        }
+
+        .seat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 15px;
+        }
+
+        .seat-card {
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .booked {
+            background-color: #9e9e9e;
+        }
+
+        .available {
+            background-color: #4caf50;
+        }
+
+        .seat-card button {
+            margin-top: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            background-color: white;
+            color: black;
+        }
+
+        .screen-bar {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .right-panel {
+            flex: 1;
+            background-color: #fff;
+            padding: 20px;
+            border-left: 1px solid #ddd;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        .next-match {
+            background-color: #e0f7fa;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        body.dark-mode .right-panel {
+            background-color: #1e1e1e;
+            color: white;
+        }
+
+        body.dark-mode .next-match {
+            background-color: #333;
+        }
+    </style>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+    </script>
+</head>
+<body>
+<div class="header">
+    <div class="title">
+        <img src="/images/rcb-logo.jpg" alt="RCB Logo" />
+        RCB FanClub
+    </div>
+    <div class="actions">
+        <a th:href="@{/profile}">Profile</a>
+        <button class="toggle-dark" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
+    </div>
+</div>
+
+<div class="content">
+    <div class="main-content">
+        <div th:if="${homeDto != null and homeDto.currMatch != null}" class="match-card">
+            <h2>Match #<span th:text="${homeDto.currMatch.match_no}">1</span></h2>
+            <p><strong>Teams:</strong> <span th:text="${homeDto.currMatch.teams}">RCB vs MI</span></p>
+            <p><strong>Date:</strong> <span th:text="${homeDto.currMatch.dateTime}">2025-04-17T19:30:00</span></p>
+            <p><strong>Year:</strong> <span th:text="${homeDto.currMatch.year}">2025</span></p>
+        </div>
+
+        <div class="screen-bar">SCREEN</div>
+
+        <div class="seat-grid" th:if="${homeDto != null and homeDto.seatsList != null}">
+            <div th:each="seat : ${homeDto.seatsList}">
+                <form th:action="@{/book}" method="get">
+                    <input type="hidden" name="seatNo" th:value="${seat.seatNo}" />
+                    <input type="hidden" name="match_no" th:value="${homeDto.currMatch?.match_no}" />
+                    <div th:class="'seat-card ' + (${seat.Booked} ? 'booked' : 'available')">
+                        <div th:text="${seat.seatNo}">A1</div>
+                        <button th:if="${!seat.Booked}" type="submit">Book</button>
+                        <div th:if="${seat.Booked}">Booked</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel" th:if="${homeDto != null and homeDto.nextMatches != null}">
+        <h3>Upcoming Matches</h3>
+        <div th:each="match : ${homeDto.nextMatches}" class="next-match">
+            <h4>Match #<span th:text="${match.match_no}">2</span></h4>
+            <p><strong>Teams:</strong> <span th:text="${match.teams}">CSK vs KKR</span></p>
+            <p><strong>Date:</strong> <span th:text="${match.dateTime}">2025-04-20T19:30:00</span></p>
+            <p><strong>Year:</strong> <span th:text="${match.year}">2025</span></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
