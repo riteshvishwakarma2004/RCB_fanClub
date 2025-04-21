@@ -5,11 +5,13 @@ import com.Ritesh.RCB_FanClub.Model.Matches;
 import com.Ritesh.RCB_FanClub.Model.Seats;
 import com.Ritesh.RCB_FanClub.dto.HomeDataDto;
 import com.Ritesh.RCB_FanClub.dto.MatchDto;
+import com.Ritesh.RCB_FanClub.dto.RegistrationDetail;
 import com.Ritesh.RCB_FanClub.dto.SeatsDto;
 import com.Ritesh.RCB_FanClub.repository.FansRepo;
 import com.Ritesh.RCB_FanClub.repository.MatchesRepo;
 import com.Ritesh.RCB_FanClub.repository.SeatsRepo;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -22,10 +24,12 @@ public class HomeService {
     private MatchesRepo matchesRepo;
     private SeatsRepo seatsRepo;
     private FansRepo fansRepo;
-    public HomeService(MatchesRepo repo, SeatsRepo seatsRepo, FansRepo fansRepo){
+    private PasswordEncoder encoder;
+    public HomeService(MatchesRepo repo, SeatsRepo seatsRepo, FansRepo fansRepo, PasswordEncoder encoder){
         this.matchesRepo = repo;
         this.seatsRepo = seatsRepo;
         this.fansRepo = fansRepo;
+        this.encoder = encoder;
     }
 
     public HomeDataDto getHomeDate() {
@@ -52,5 +56,27 @@ public class HomeService {
     public Fans getProfile(String phone) {
         Fans fan = fansRepo.findByPhone(phone);
         return (fan != null) ? fan : new Fans();
+    }
+
+    public int register(RegistrationDetail detail) {
+        String phone = detail.getPhone();
+                if(fansRepo.existsById(phone)){
+                    return 0;
+                }
+        Fans fan = new Fans();
+        fan.setName(detail.getName());
+        fan.setPhone(detail.getPhone());
+        fan.setPassword(encoder.encode(detail.getPassword()));
+        fan.setBalance(1000.0);
+        fan.setLastSeatDetail("N/A");
+        try{
+        fansRepo.save(fan);
+        return 1;
+    } catch (Exception e) {
+
+        }
+
+        return 2;
+
     }
 }

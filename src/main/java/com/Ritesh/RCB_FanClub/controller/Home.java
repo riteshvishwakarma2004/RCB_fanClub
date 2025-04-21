@@ -4,6 +4,7 @@ package com.Ritesh.RCB_FanClub.controller;
 import com.Ritesh.RCB_FanClub.Model.Fans;
 import com.Ritesh.RCB_FanClub.dto.HomeDataDto;
 import com.Ritesh.RCB_FanClub.service.HomeService;
+import com.Ritesh.RCB_FanClub.dto.RegistrationDetail;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,12 +44,19 @@ public class Home {
     }
 
     @PostMapping("/register")
-    public String register(@ModelAttribute RegisterDetail detail){
+    public String register(@ModelAttribute RegistrationDetail detail) {
+        int result = homeService.register(detail);
+        if (result == 1) {
+            return "success";
+        }
+        if(result  == 0){
+            return "userExistError";
+        }
 
-        //complete it
-
-        return "success";
+        return "failed";
     }
+
+
 
 //   @GetMapping("/home")
 //   @ResponseBody

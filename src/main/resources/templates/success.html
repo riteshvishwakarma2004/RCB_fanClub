@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Success Animation</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f9;
+    }
+
+    .success-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #4CAF50;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        animation: popIn 0.5s ease-in-out;
+        transform: scaleX(-1); /* Flip the circle horizontally */
+    }
+
+    .tick {
+        width: 50px;
+        height: 25px;
+        border: solid white;
+        border-width: 0 5px 5px 0;
+        transform: rotate(45deg); /* Flipped rotation */
+        animation: draw 0.4s ease-in-out 0.5s forwards;
+        opacity: 0;
+    }
+
+    .message {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out 1s forwards;
+    }
+
+    /* Keyframes for animations */
+    @keyframes popIn {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes draw {
+        0% {
+            width: 0;
+            height: 0;
+            opacity: 1;
+        }
+        100% {
+            width: 50px;
+            height: 25px;
+            opacity: 1;
+        }
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+  </style>
+</head>
+<body>
+<a th:href="@{/home}">HOME</a>
+
+<div class="success-container">
+  <div class="circle">
+    <div class="tick"></div>
+  </div>
+  <div class="message">Success!</div>
+</div>
+</body>
+</html>

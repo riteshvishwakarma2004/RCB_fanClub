@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Failure Animation</title>
+  <style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f4f4f9;
+    }
+
+    .failure-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .circle {
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background-color: #f44336;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        animation: popIn 0.5s ease-in-out;
+    }
+
+    .cross {
+        width: 50px;
+        height: 50px;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .cross::before, .cross::after {
+        content: '';
+        position: absolute;
+        width: 5px;
+        height: 50px;
+        background-color: white;
+        animation: drawCross 0.4s ease-in-out forwards;
+    }
+
+    .cross::before {
+        transform: rotate(45deg);
+    }
+
+    .cross::after {
+        transform: rotate(-45deg);
+    }
+
+    .message {
+        margin-top: 20px;
+        font-size: 18px;
+        font-weight: bold;
+        color: #333;
+        opacity: 0;
+        animation: fadeIn 1s ease-in-out 1s forwards, shake 0.5s ease-in-out 2s forwards;
+    }
+
+    /* Keyframes for animations */
+    @keyframes popIn {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    @keyframes drawCross {
+        0% {
+            width: 0;
+            height: 0;
+        }
+        100% {
+            width: 50px;
+            height: 5px;
+        }
+    }
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes shake {
+        0% {
+            transform: translateX(0);
+        }
+        25% {
+            transform: translateX(-5px);
+        }
+        50% {
+            transform: translateX(5px);
+        }
+        75% {
+            transform: translateX(-5px);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+  </style>
+</head>
+<body>
+<div class="failure-container">
+  <div class="circle">
+    <div class="cross"></div>
+  </div>
+  <div class="message">User with this phone Number already Exists, please register with different phone number</div>
+</div>
+<a th:href="@{/home}">HOME</a>
+</body>
+</html>

@@ -10,8 +10,6 @@ import java.io.Serializable;
 @Embeddable
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @EqualsAndHashCode
 public class SeatId implements Serializable {
     private Integer match_no;
