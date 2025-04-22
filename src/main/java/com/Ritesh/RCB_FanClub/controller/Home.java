@@ -1,6 +1,7 @@
 package com.Ritesh.RCB_FanClub.controller;
 
 
+import com.Ritesh.RCB_FanClub.Model.BookingDetails;
 import com.Ritesh.RCB_FanClub.Model.Fans;
 import com.Ritesh.RCB_FanClub.dto.HomeDataDto;
 import com.Ritesh.RCB_FanClub.service.HomeService;
@@ -56,7 +57,22 @@ public class Home {
         return "failed";
     }
 
-
+    @GetMapping("/book")
+    public String booking(@ModelAttribute BookingDetails book , Model model){
+      boolean bookable =   homeService.book(book,model);
+        if(bookable){
+            return "bookPass";
+        }
+        return "bookFailed";
+    }
+    @PostMapping("/confirmBook")
+    public String confirmBooking(@RequestParam("seat_no") String seat_no,
+                                 @RequestParam("match_no") Integer match_no,
+                                 Model model){
+        String phone = SecurityContextHolder.getContext().getAuthentication().getName();
+        homeService.confirmBook(seat_no,match_no,phone,model);
+        return "ticket";
+    }
 
 //   @GetMapping("/home")
 //   @ResponseBody

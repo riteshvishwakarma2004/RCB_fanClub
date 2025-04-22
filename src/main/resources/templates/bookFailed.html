@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Booking Summary</title>
+  <style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f8f9fa;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .summary-container {
+        background-color: #ffffff;
+        padding: 30px 40px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+    }
+
+    .summary-container h2 {
+        margin-bottom: 25px;
+        color: #d32f2f;
+    }
+
+    .summary-row {
+        margin: 12px 0;
+        font-size: 18px;
+    }
+
+    .summary-label {
+        font-weight: bold;
+    }
+
+    .status-false {
+        color: #d32f2f;
+        font-weight: bold;
+    }
+
+    .home-link {
+        display: inline-block;
+        margin-top: 30px;
+        padding: 10px 24px;
+        background-color: #e91e63;
+        color: white;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+    }
+
+    .home-link:hover {
+        background-color: #c2185b;
+    }
+  </style>
+</head>
+<body>
+<div class="summary-container">
+  <h2>Booking Failed</h2>
+
+  <div class="summary-row">
+    <span class="summary-label">Name:</span>
+    <span th:text="${name}">Virat Kohli</span>
+  </div>
+  <div class="summary-row">
+    <span class="summary-label">Phone:</span>
+    <span th:text="${phone}">9876543210</span>
+  </div>
+  <div class="summary-row">
+    <span class="summary-label">Current Balance:</span>
+    ₹<span th:text="${currentBalance}">500.00</span>
+  </div>
+  <div class="summary-row status-false">
+    ❌ Booking is not possible due to insufficient balance.
+  </div>
+
+  <a th:href="@{/home}" class="home-link">Back to Home</a>
+</div>
+</body>
+</html>

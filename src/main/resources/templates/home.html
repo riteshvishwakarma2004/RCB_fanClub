@@ -193,10 +193,12 @@
         <div class="seat-grid" th:if="${homeDto != null and homeDto.seatsList != null}">
             <div th:each="seat : ${homeDto.seatsList}">
                 <form th:action="@{/book}" method="get">
-                    <input type="hidden" name="seatNo" th:value="${seat.seatNo}" />
+
+                    <input type="hidden" name="seat_no" th:value="${seat.seatNo}" />
                     <input type="hidden" name="match_no" th:value="${homeDto.currMatch?.match_no}" />
                     <div th:class="'seat-card ' + (${seat.Booked} ? 'booked' : 'available')">
                         <div th:text="${seat.seatNo}">A1</div>
+                        <h3>Price : 499/-</h3>
                         <button th:if="${!seat.Booked}" type="submit">Book</button>
                         <div th:if="${seat.Booked}">Booked</div>
                     </div>

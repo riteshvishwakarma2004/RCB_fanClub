@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>RCB Match Ticket</title>
+  <style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f0f0f0;
+        padding: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .ticket {
+        width: 600px;
+        background: #ffffff;
+        border: 2px dashed #e91e63;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        position: relative;
+    }
+
+    .ticket-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #e91e63;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+    }
+
+    .ticket-header h2 {
+        margin: 0;
+        color: #e91e63;
+    }
+
+    .ticket-header img {
+        height: 50px;
+    }
+
+    .ticket-info {
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .ticket-info label {
+        font-weight: bold;
+        color: #9c27b0;
+    }
+
+    .ticket-footer {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .ticket-footer button, .ticket-footer a {
+        background-color: #e91e63;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        margin: 5px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    @media print {
+        .ticket-footer {
+            display: none;
+        }
+    }
+  </style>
+  <script>
+    function downloadTicket() {
+        window.print();
+    }
+  </script>
+</head>
+<body>
+<div class="ticket">
+  <div class="ticket-header">
+    <h2>RCB FanClub Match Ticket</h2>
+    <img src="/images/rcb-logo.jpg" alt="RCB Logo" />
+  </div>
+
+  <div class="ticket-info">
+    <p><label>Match No:</label> <span th:text="${matchNo}">1</span></p>
+    <p><label>Teams:</label> <span th:text="${teams}">RCB vs MI</span></p>
+    <p><label>Date & Time:</label> <span th:text="${dateTime}">2025-04-20T19:30:00</span></p>
+    <p><label>Year:</label> <span th:text="${year}">2025</span></p>
+    <hr/>
+    <p><label>Name:</label> <span th:text="${name}">Virat Kohli</span></p>
+    <p><label>Phone:</label> <span th:text="${phone}">9876543210</span></p>
+    <p><label>Seat No:</label> <span th:text="${seatNo}">A12</span></p>
+    <p><label>Price:</label> ₹<span th:text="${price}">250</span></p>
+  </div>
+
+  <div class="ticket-footer">
+    <button onclick="downloadTicket()">Download Ticket</button>
+    <a th:href="@{/home}">Back to Home</a>
+  </div>
+</div>
+</body>
+</html>

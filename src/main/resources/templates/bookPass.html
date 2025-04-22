@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Booking Confirmation</title>
+  <style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0fdf4;
+        color: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .confirmation-container {
+        background-color: #ffffff;
+        padding: 30px 40px;
+        border-radius: 16px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+    }
+
+    .confirmation-container h2 {
+        margin-bottom: 25px;
+        color: #388e3c;
+    }
+
+    .info-row {
+        margin: 12px 0;
+        font-size: 18px;
+    }
+
+    .info-label {
+        font-weight: bold;
+    }
+
+    .status-true {
+        color: #388e3c;
+        font-weight: bold;
+    }
+
+    .confirm-button {
+        margin-top: 30px;
+        padding: 10px 24px;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .confirm-button:hover {
+        background-color: #388e3c;
+    }
+  </style>
+</head>
+<body>
+<div class="confirmation-container">
+  <h2>Ready to Confirm Booking</h2>
+
+  <div class="info-row">
+    <span class="info-label">Name:</span>
+    <span th:text="${name}">Virat Kohli</span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">Phone:</span>
+    <span th:text="${phone}">9876543210</span>
+  </div>
+  <div class="info-row">
+    <span class="info-label">Current Balance:</span>
+    ₹<span th:text="${currentBalance}">700.00</span>
+  </div>
+
+  <div class="info-row status-true">
+    ✅ Seat and balance both are available, let's gooo.....
+  </div>
+
+  <form th:action="@{/confirmBook}" method="post">
+    <input type="hidden" name="seat_no" th:value="${seat_no}" />
+    <input type="hidden" name="match_no" th:value="${match_no}" />
+    <button type="submit" class="confirm-button">Confirm Booking</button>
+  </form>
+</div>
+</body>
+</html>
